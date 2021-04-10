@@ -1,11 +1,15 @@
 # fixWebGraphvizAscii
+
+[![License MIT](https://img.shields.io/npm/l/@aduh95/viz.js.svg)](https://github.com/aduh95/viz.js/blob/master/LICENCE)
+
 **Permit web graphviz rendering on full Unicode**
 
 ![teaser](https://user-images.githubusercontent.com/59834740/114241795-2fa22e00-9960-11eb-8766-7ff18bfe19e1.png)
 
-For the moment, the different ports of graphviz on the web all have the same default: 
+> For the moment, the different ports of graphviz on the web all have the same default: 
 > it incorrectly calculates the dimensions of elements which are not ASCII !
-ie .: https://github.com/aduh95/viz.js/issues/10
+> (ie. https://github.com/aduh95/viz.js/issues/10)
+
 Until that is resolved, here is a workaround. It works well but consumes more computing time.
 
 # Algorithm:
