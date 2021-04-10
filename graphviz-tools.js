@@ -1,4 +1,6 @@
 // Graphviz tools 
+// (c) 2021 Sébastien Bloc [sbloc@hotmail.com]
+// released under the MIT license
 
 // check if ascii only
 function isAscii(source) {

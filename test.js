@@ -1,4 +1,8 @@
-﻿function showError(message) {
+﻿// main test for fixVisAscii
+// (c) 2021 Sébastien Bloc [sbloc@hotmail.com]
+// released under the MIT license
+
+function showError(message) {
 	errorMessage.textContent=" /!\\ Error: " + message;
 }
 

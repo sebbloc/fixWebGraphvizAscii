@@ -1,3 +1,7 @@
+// serialize from DOT data parsing
+// (c) 2021 Sébastien Bloc [sbloc@hotmail.com]
+// released under the MIT license
+
 /*
 	Regual Expression to reconise if a graphviz label need dquote
 	exclude impossible char:
@@ -10,7 +14,9 @@
 */
 
 var erDSHNorm = /^(([0-9]+)|([^0-9\x00\x20-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7E][^\x00\x20-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7E]*))$/i;
-// var erDSHNorm = /^(([0-9]+)|([a-z_][a-z0-9_]*))$/i;  // simple but not working on unicode ex.: "écharde []" is valide
+// var erDSHNorm = /^(([0-9]+)|([a-// main test for fixVisAscii
+// (c) 2021 Sébastien Bloc [sbloc@hotmail.com]
+// released under the MIT licensez_][a-z0-9_]*))$/i;  // simple but not working on unicode ex.: "écharde []" is valide
 
 // for graphviz, add quotes if needed
 function normLabel(label) {	

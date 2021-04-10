@@ -1,4 +1,8 @@
-﻿//var fontFix = 'graph [fontname="helvetica"] node [fontname="helvetica"] edge [fontname="helvetica"] margin=0';
+﻿// Datas comming from official graphviz gallery: https://graphviz.org/Gallery
+// (c) 2021 Sébastien Bloc [sbloc@hotmail.com]
+// released under the MIT license
+
+//var fontFix = 'graph [fontname="helvetica"] node [fontname="helvetica"] edge [fontname="helvetica"] margin=0';
 var fontFix = 'graph [fontname="helvetica"]\n\tnode [fontname="helvetica"]\n\tedge [fontname="helvetica"]\n';
 //var fontFix = 'fontname="helvetica" margin=0';
 //var fontFix = 'fontname="helvetica"';
