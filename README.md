@@ -55,3 +55,10 @@ document.body.appendChild(createNodeHtml(svgFixed));
 // 4) fix svg
 fix.applySvg();											
 ```
+
+# Have flags or options ?
+You can check steeps log on console to simply write:
+```javascript
+debug = true;
+```
+
