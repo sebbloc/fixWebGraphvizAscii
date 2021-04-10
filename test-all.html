@@ -1,0 +1,101 @@
+<html>
+<head>
+	<script src="dot.js"></script>
+	<script src="dotSerialize.js"></script>
+	<script src="graphviz-tools.js"></script>
+	<script src="viz.js"></script>
+</head>
+<body>
+	<title>fixVizAscii</title>
+	
+	<style>
+		td {
+			text-align: center;
+		}
+		
+		svg {
+			border-style: solid;
+		}
+		
+		#config {
+			border-style: dashed;
+			padding: 10px;
+			line-height: 50px;
+		}
+		
+		#originalDot, #finalDot, #finalSvgReplace {
+			text-align: left;
+			word-break: break-word;
+			white-space: pre-wrap;
+			background-color: lightgrey;
+			border-style: groove;
+		}
+		#dot td {
+			text-align: left;
+			vertical-align: baseline;
+		}
+		#error {
+			color: red;
+			font-size: 30px;
+			margin: 50px;
+		}
+		
+	</style>
+	<span id="config">
+		source: 
+		<select id="source">
+		</select> &nbsp;| mode: <select id="mode">
+			<option value="0">norm</option>
+			<option value="2">debug</option>
+			<option value="1" selected>fix</option>
+		</select>
+		&nbsp;| always: 
+		<input type="checkbox" id="always" checked>
+	</span>
+	&nbsp;<a id="url">(url)</a>&nbsp;
+	<span id="error"></span>
+	<!-- portrait -->
+	<!--
+	<table>
+		<tr>
+			<td><b>original<b></td>
+			<td><b>fixed<b></td>
+		</tr>
+		<tr>
+			<td id="original"></td>
+			<td id="final"></td>
+		</tr>
+	</table>
+	-->
+	<!-- landscape -->
+	<table>
+		<tr>
+			<td><b>original<b></td>
+			<td id="original"></td>
+		</tr>
+		<tr>
+			<td><b>fixed<b></td>
+			<td id="final"></td>
+		</tr>
+	</table>
+	<table id="dot">
+		<tr>
+			<td><b>original dot:</b><p id="originalDot"></p></td>
+			<td><b>fixed dot:</b><p id="finalDot"></p><b>svg replacement:</b><p id="finalSvgReplace"></p></td>
+		</tr>
+	</table>
+<!--
+	<table id="dot">
+		<tr>
+			<td><b>original dot:<b></td>
+			<td><b>fixed dot:<b></td>
+		</tr>
+		<tr>
+			<td><p id="originalDot"></p></td>
+			<td><p id="finalDot"></p></td>
+		</tr>
+	</table>
+-->
+	<script src="datas.js"></script>
+	<script src="test.js"></script>
+</body>
