@@ -39,12 +39,53 @@ function dot2SvgFixed(dot) {
 var source = document.getElementById("source");
 var mode = document.getElementById("mode");
 var always = document.getElementById("always");
-source.onchange = test;
+var direction = document.getElementById("direction");
+source.onchange = function() {
+	applySource();
+	test();
+}
 mode.onchange = test;
 always.onchange = test;
+direction.onchange = test;
 
-var original = document.getElementById("original");
-var final = document.getElementById("final");
+var original;
+var final;
+var cfgSource;
+
+function applySource() {
+	cfgSource 	= source.options[source.selectedIndex].value;	
+	var compare = dots[cfgSource].compare;
+	switch (compare) {
+		case "|": 
+			direction.checked = true; 
+			break;
+		default:
+		case "-": 
+			direction.checked = false; 
+			break;
+	}
+}
+
+function applyDirection() {
+	// remove previous
+	var child;
+	if (original) {
+		child = original.children[0];
+		if (child) original.removeChild(child)
+	}
+	if (final) {
+		child = final.children[0];
+		if (child) final.removeChild(child)
+	}
+		
+	var prefix = direction.checked ? "hori":"vert";
+	prefix +="_";
+	original = document.getElementById(prefix+"original");
+	final = document.getElementById(prefix+"final");
+	document.getElementById("vert").style.visibility=direction.checked?"collapse":"";
+	document.getElementById("hori").style.visibility=direction.checked?"":"collapse";
+}
+
 var originalDot = document.getElementById("originalDot");
 var finalDot = document.getElementById("finalDot");
 var finalSvgReplace = document.getElementById("finalSvgReplace");
@@ -61,21 +102,17 @@ source.selectedIndex=0;
 var debug=false; // general debug ?
 
 // run first
+applySource();
 test();
 
 var fix;
 function test() {
-	// apply config
-	var cfgSource 	= source.options[source.selectedIndex].value;		
+	applyDirection();
+	
+	// apply config	
 	var cfgMode 	= mode.options[mode.selectedIndex].value;
 	var cfgAlways 	= always.checked;
-	var child;
-
-	// remove previous
-	child = original.children[0];
-	if (child) original.removeChild(child)
-	child = final.children[0];
-	if (child) final.removeChild(child)
+	
 	finalDot.textContent = "";
 	originalDot.textContent = "";
 	finalSvgReplace.innerHTML = "";

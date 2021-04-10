@@ -8,132 +8,150 @@ var fontFix = 'graph [fontname="helvetica"]\n\tnode [fontname="helvetica"]\n\ted
 //var fontFix = 'fontname="helvetica"';
 var dots= [];
 
-dots["Math"] = {
-	url: "https://graphviz.org/Gallery/directed/Genetic_Programming.html",
-	dot: `graph ""
-   {
+dots["Clusters"] = {
+	compare: "|",
+	url: "https://graphviz.org/Gallery/directed/cluster.html",
+	dot: `digraph G {
 	${fontFix}
-#   node [fontsize=10,width=".2", height=".2", margin=0];
-#   graph[fontsize=8];
-   label="((+ (* (X) (- (- (X) (X)) (X))) (% (+ (X) (X)) (COS (- (X) (X))))) (EXP (* (X) (X))) (+ (% (EXP (SIN (+ (X) (X)))) (SIN (* (X) (EXP (* (X) (X)))))) (* (X) (X))) (% (EXP (% (X) (% (X) (X)))) (EXP (SIN (X)))))"
+	subgraph cluster_0 {
+		style=filled;
+		color=lightgrey;
+		node [style=filled,color=white];
+		a0 -> a1 -> a2 -> a3;
+		label = "process #1";
+	}
 
-   subgraph cluster01
-   {
-   label="(+ (* (X) (- (- (X) (X)) (X))) (% (+ (X) (X)) (COS (- (X) (X)))))"
-   n002 ;
-   n002 [label="+"] ;
-   n002 -- n003 ;
-   n003 [label="*"] ;
-   n003 -- n004 ;
-   n004 [label="X"] ;
-   n003 -- n005 ;
-   n005 [label="-"] ;
-   n005 -- n006 ;
-   n006 [label="-"] ;
-   n006 -- n007 ;
-   n007 [label="X"] ;
-   n006 -- n008 ;
-   n008 [label="X"] ;
-   n005 -- n009 ;
-   n009 [label="X"] ;
-   n002 -- n010 ;
-   n010 [label="%"] ;
-   n010 -- n011 ;
-   n011 [label="+"] ;
-   n011 -- n012 ;
-   n012 [label="X"] ;
-   n011 -- n013 ;
-   n013 [label="X"] ;
-   n010 -- n014 ;
-   n014 [label="COS"] ;
-   n014 -- n015 ;
-   n015 [label="-"] ;
-   n015 -- n016 ;
-   n016 [label="X"] ;
-   n015 -- n017 ;
-   n017 [label="X"] ;
-   }
+	subgraph cluster_1 {
+		node [style=filled];
+		b0 -> b1 -> b2 -> b3;
+		label = "process #2";
+		color=blue
+	}
+	start -> a0;
+	start -> b0;
+	a1 -> b3;
+	b2 -> a3;
+	a3 -> a0;
+	a3 -> end;
+	b3 -> end;
 
-   subgraph cluster17
-   {
-   label="(EXP (* (X) (X)))"
-   n018 ;
-   n018 [label="EXP"] ;
-   n018 -- n019 ;
-   n019 [label="*"] ;
-   n019 -- n020 ;
-   n020 [label="X"] ;
-   n019 -- n021 ;
-   n021 [label="X"] ;
-   }
-
-   subgraph cluster21
-   {
-   label="(+ (% (EXP (SIN (+ (X) (X)))) (SIN (* (X) (EXP (* (X) (X)))))) (* (X) (X)))"
-   n022 ;
-   n022 [label="+"] ;
-   n022 -- n023 ;
-   n023 [label="%"] ;
-   n023 -- n024 ;
-   n024 [label="EXP"] ;
-   n024 -- n025 ;
-   n025 [label="SIN"] ;
-   n025 -- n026 ;
-   n026 [label="+"] ;
-   n026 -- n027 ;
-   n027 [label="X"] ;
-   n026 -- n028 ;
-   n028 [label="X"] ;
-   n023 -- n029 ;
-   n029 [label="SIN"] ;
-   n029 -- n030 ;
-   n030 [label="*"] ;
-   n030 -- n031 ;
-   n031 [label="X"] ;
-   n030 -- n032 ;
-   n032 [label="EXP"] ;
-   n032 -- n033 ;
-   n033 [label="*"] ;
-   n033 -- n034 ;
-   n034 [label="X"] ;
-   n033 -- n035 ;
-   n035 [label="X"] ;
-   n022 -- n036 ;
-   n036 [label="*"] ;
-   n036 -- n037 ;
-   n037 [label="X"] ;
-   n036 -- n038 ;
-   n038 [label="X"] ;
-   }
-
-   subgraph cluster38
-   {
-   label="(% (EXP (% (X) (% (X) (X)))) (EXP (SIN (X))))"
-   n039 ;
-   n039 [label="%"] ;
-   n039 -- n040 ;
-   n040 [label="EXP"] ;
-   n040 -- n041 ;
-   n041 [label="%"] ;
-   n041 -- n042 ;
-   n042 [label="X"] ;
-   n041 -- n043 ;
-   n043 [label="%"] ;
-   n043 -- n044 ;
-   n044 [label="X"] ;
-   n043 -- n045 ;
-   n045 [label="X"] ;
-   n039 -- n046 ;
-   n046 [label="EXP"] ;
-   n046 -- n047 ;
-   n047 [label="SIN"] ;
-   n047 -- n048 ;
-   n048 [label="X"] ;
-   }
-   }
+	start [shape=Mdiamond];
+	end [shape=Msquare];
+	# localisation
+}
 `};
 
+dots["Clusters (greek)"] = {
+	compare: "|",
+	dot: dots["Clusters"].dot.replace("# localisation", `
+	# greek version
+	start [label="αρχή"]
+	end [label="τέλος"]
+	a0 [label="Κλήσεις συστήματος"]
+	a1 [label="συστήματα αρχείων"]
+	a2 [label="Συσκευή"]
+	a3 [label="Μοντέλο"]
+	b0 [label="εκτέλεση συστήματος"]
+	b1 [label="ενότητες"]
+	b2 [label="γενική"]
+	b3 [label="πρόσβαση"]
+	subgraph cluster_1 {
+		label = "διεργασία #2"
+	}
+	subgraph cluster_0 {
+		label = "διεργασία #1"
+	}
+`)};
+
+dots["Traffic Lights"] = {
+	compare: "|",
+	url: "https://graphviz.org/Gallery/directed/traffic_lights.html",
+	dot: `digraph TrafficLights {
+${fontFix}
+node [shape=box];  gy2; yr2; rg2; gy1; yr1; rg1;
+node [shape=circle,fixedsize=true,width=0.9];  green2; yellow2; red2; safe2; safe1; green1; yellow1; red1;
+gy2->yellow2;
+rg2->green2;
+yr2->safe1;
+yr2->red2;
+safe2->rg2;
+green2->gy2;
+yellow2->yr2;
+red2->rg2;
+gy1->yellow1;
+rg1->green1;
+yr1->safe2;
+yr1->red1;
+safe1->rg1;
+green1->gy1;
+yellow1->yr1;
+red1->rg1;
+
+overlap=false
+label="PetriNet Model TrafficLights\nExtracted from ConceptBase and layed out by Graphviz"
+fontsize=12;
+# localisation
+}
+`};
+
+dots["Traffic Lights (russian)"] = {
+	compare: "-",
+	dot: dots["Traffic Lights"].dot.replace("# localisation", `
+	# russian version
+	red1 [label="красный1" ,fixedsize=false]
+	red2 [label="красный2" ,fixedsize=false]
+	safe1 [label="безопасно1" ,fixedsize=false]
+	safe2 [label="безопасно2" ,fixedsize=false]
+	green1 [label="зеленый1" ,fixedsize=false]
+	green2 [label="зеленый2" ,fixedsize=false]
+	yellow1 [label="желтый1" ,fixedsize=false]
+	yellow2 [label="желтый2" ,fixedsize=false]
+	label="Модель светофоров сети Петри \ nИзготовлено из ConceptBase и выложено Graphviz"
+`)};
+
+dots["Graph, Cluster and Node Gradients"] = {
+	compare: "|",
+	url: "https://graphviz.org/Gallery/gradient/g_c_n.html",
+	dot: `digraph G { bgcolor="purple:pink" label="agraph" fontcolor="white"
+  ${fontFix}
+  subgraph cluster1 {fillcolor="blue:cyan" label="acluster" fontcolor="white" style="filled" gradientangle="270"
+		node [shape=box fillcolor="red:yellow" style="filled" gradientangle=90]
+		anode;
+	}
+	# localisation
+} 
+`};
+
+dots["Graph, Cluster and Node Gradients (Japanese)"] = {
+	compare: "|",
+	dot: dots["Graph, Cluster and Node Gradients"].dot.replace("# localisation", `
+	# Japanese version
+	label="グラフです"
+	subgraph cluster1 {
+		label="それは集まる"
+	}
+	anode [label="ノードノードノード"]
+`)};
+
+dots["Hello World"] = {
+	compare: "|",
+	url: "https://graphviz.org/Gallery/directed/hello.html",
+	dot: `digraph G {${fontFix} Hello->World}
+`};
+
+dots["Hello World (arabic)"] = {
+	compare: "|",
+	dot: `digraph G {
+	${fontFix} 
+	Hello->World
+	Hello [label="هتاف للترحيب"]
+	World [label="العالمية"]
+}
+`};
+
+
 dots["Linux Kernel Diagram"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/Linux_kernel_diagram.html",
 	dot:`digraph matrix {
 	graph [newrank=true,
@@ -770,10 +788,271 @@ dots["Linux Kernel Diagram"] = {
 		shape=plain,
 		style=""];
 	LKD -> storage;
+	# localisation
+}
+`};
+	
+dots["Linux Kernel Diagram (Panjabi)"] = {
+	compare: "-",
+	dot: dots["Linux Kernel Diagram"].dot.replace("# localisation", `
+	# Panjabi version
+	CPU [label="ਸੀਪੀਯੂ" fixedsize=false width=""]
+	DM  [label="ਡਿਵਾਈਸ \nਮਾਡਲ" fixedsize=false width=""]
+	F7  [label="ਐਚਆਈ ਕਲਾਸ\nਡਰਾਈਵਰ" fixedsize=false width=""]
+	FS  [label="ਫਾਈਲਾਂ ਅਤੇ\nਡਾਇਰੈਕਟਰੀਆਂ" fixedsize=false width="" shape=box]
+	H2  [label="ਕਾਰੋਬਾਰ:\nPCI, USB ..." fixedsize=false width=""]
+	H4  [label="ਸਟੋਰੇਜ਼ ਜੰਤਰ:\nਐਸਸੀਐਸਆਈ,\nਐਨਵੀਐਮ ..." fixedsize=false width=""]
+	H5	 [label="ਐਮਐਮਯੂ, ਰੈਮ" fixedsize=false width=""]
+	H7  [label="ਡਿਸਪਲੇਅ, ਕੀਬੋਰਡ,\nਮਾ mouseਸ,\nਆਡੀਓ" fixedsize=false width=""]
+	HI  [label="ਮਨੁੱਖ\nਇੰਟਰਫੇਸ" fixedsize=false width=""]
+	HID  [label="ਐਚਆਈ\nਪੈਰੀਫਿਰਲਸ\nਡਰਾਈਵਰ" fixedsize=false width=""]
+	HW  [label="ਇਲੈਕਟ੍ਰਾਨਿਕਸ,\nਹਾਰਡਵੇਅਰ" fixedsize=false width=""]
+	HWI	 [label="ਹਾਰਡਵੇਅਰ\nਇੰਟਰਫੇਸ" fixedsize=false width=""]
+	IRQ  [label="ਰੁਕਾਵਟਾਂ\nਕੋਰ,\nਸੀਪੀਯੂ ਪੁਰਾਲੇਖ" fixedsize=false width=""]
+	LKD  [label="ਲੀਨਕਸ ਕਰਨਲ ਚਿੱਤਰ" fixedsize=false width=""]
+	MA  [label="ਮੈਮੋਰੀ\nਪਹੁੰਚ" fixedsize=false width="" shape=box]
+	NFS  [label="ਐੱਨ.ਐੱਫ\n.ਐੱਸ" fixedsize=false width=""]
+	PA  [label="ਪੇਜ\nਅਲਾੱਕਟਰ" fixedsize=false width=""]
+	PC  [label="ਪੇਜ\nਕੈਚੇ" fixedsize=false width=""]
+	SCI	 [label="ਸਿਸਟਮ ਕਾਲਾਂ" fixedsize=false width="" shape=box]
+	SW  [label="ਸਵੈਪ" fixedsize=false width=""]
+	Tasks  [label="ਕੰਮ" fixedsize=false width=""]
+	VFS  [label="ਵਰਚੁਅਲ\nਫਾਈਲ ਸਿਸਟਮ" fixedsize=false width=""]
+	VM  [label="ਵਰਚੁਅਲ\nਮੈਮੋਰੀ" fixedsize=false width=""]
+	block  [label="ਬਲਾਕ\nਜੰਤਰ\nਅਤੇ ਡਰਾਈਵਰ" fixedsize=false width=""]
+	bottom	 [label="© 2007-2019 ਕਾਂਸਟੇਂਟਾਈਨ ਸ਼ੂਲਿਉਪਿਨ http://www.MakeLinux.net/kernel/diagram" fixedsize=false width=""]
+	bridges  [label="ਬ੍ਰਿਜ" fixedsize=false width=""]
+	bus_drv	 [label="ਬੱਸ ਡਰਾਈਵਰ" fixedsize=false width=""]
+	char  [label="ਚਾਰ\nਜੰਤਰ" fixedsize=false width="" shape=box]
+	functions  [label="ਫੰਕਸ਼ਨ" fixedsize=false width=""]	
+	input  [label="ਇੰਪੁੱਟ\nਸਬ ਸਿਸਟਮ" fixedsize=false width=""]
+	layers  [label="ਪਰਤਾਂ" fixedsize=false width=""]
+	logFS  [label="ਲਾਜ਼ੀਕਲ\nਫਾਇਲ ਸਿਸਟਮ:\next3, xfs ..." fixedsize=false width=""]
+	log_mem	 [label="ਲਾਜ਼ੀਕਲ\nਮੈਮੋਰੀ" fixedsize=false width=""]
+	log_prot  [label="ਪ੍ਰੋਟੋਕੋਲ:\nਟੀਸੀਪੀ, ਯੂਡੀਪੀ,\nਆਈਪੀ" fixedsize=false width=""]
+	log_sys	 [label="ਸਿਸਟਮ ਰਨ,\nਮੋਡੀulesਲ,\nਆਮ | ਐਚ ਡਬਲਯੂ\nਐਕਸ" fixedsize=false width=""]
+	logical  [label="ਲਾਜ਼ੀਕਲ" fixedsize=false width=""]
+	memory [label="ਮੈਮੋਰੀ" fixedsize=false width=""]
+	mmap  [label="ਮੈਮੋਰੀ\nਮੈਪਿੰਗ" fixedsize=false width=""]
+	net_hw	 [label="ਨੈੱਟਵਰਕ:\nਈਥਰਨੈੱਟ,\nਵਾਈਫਾਈ ..." fixedsize=false width=""]	
+	netif  [label="ਨੈੱਟਵਰਕ\nਇੰਟਰਫੇਸ\nਅਤੇ ਡਰਾਈਵਰ" fixedsize=false width=""]
+	networking	 [label="ਨੈੱਟਵਰਕਿੰਗ" fixedsize=false width=""]	
+	proc  [label="ਪ੍ਰਕਿਰਿਆਵਾਂ" fixedsize=false width="" shape=box]
+	processing  [label="ਕਾਰਵਾਈ" fixedsize=false width=""]
+	prot_fam  [label="ਪ੍ਰੋਟੋਕੋਲ\nਪਰਿਵਾਰ" fixedsize=false width=""]
+	sched  [label="ਤਹਿ" fixedsize=false width=""]
+	sock  [label="ਸਾਕਟ" fixedsize=false width="" shape=box]
+	storage	 [label="ਸਟੋਰੇਜ" fixedsize=false width=""]
+	sync  [label="ਸਮਕਾਲੀ" fixedsize=false width=""]
+	sysfs  [label="proc, sysfs,\nਫਾਇਲ ਸਿਸਟਮ" fixedsize=false width=""]
+	system	 [label="ਸਿਸਟਮ" fixedsize=false width=""]
+	usr	 [label="ਉਪਭੋਗਤਾ ਸਪੇਸ\nਇੰਟਰਫੇਸ" fixedsize=false width="" shape=box]
+	virt  [label="ਵਰਚੁਅਲ\nਸਬ ਸਿਸਟਮ" fixedsize=false width=""]	
+`)};
+
+dots["Cluster Gradients"] = {
+	compare: "|",
+	url: "https://graphviz.org/Gallery/gradient/cluster.html",
+	dot: `digraph G {bgcolor="red:cyan" gradientangle=0
+	${fontFix}
+	subgraph cluster_0 {
+		style=filled;
+		color=lightgrey;
+		fillcolor="blue:yellow";
+		gradientangle=90;
+		node [fillcolor="yellow:green" style=filled gradientangle=270] a0;
+		node [fillcolor="green:red"] a1;
+		node [fillcolor="red:cyan"] a2;
+		node [fillcolor="cyan:blue"] a3;
+
+		a0 -> a1 -> a2 -> a3;
+		label = "process #1";
+	}
+
+	subgraph cluster_1 {
+		node [fillcolor="yellow:magenta" 
+			 style=filled gradientangle=270] b0;
+		node [fillcolor="magenta:cyan"] b1;
+		node [fillcolor="cyan:red"] b2;
+		node [fillcolor="red:blue"] b3;
+
+		b0 -> b1 -> b2 -> b3;
+		label = "process #2";
+		color=blue
+		fillcolor="blue:yellow";
+		style=filled;
+		gradientangle=90;
+	}
+	start -> a0;
+	start -> b0;
+	a1 -> b3;
+	b2 -> a3;
+	a3 -> a0;
+	a3 -> end;
+	b3 -> end;
+
+	start [shape=Mdiamond ,
+		fillcolor="yellow:brown",
+		gradientangle=90,
+		style=radial];
+	end [shape=Msquare,
+		fillcolor="orange:blue",
+		style=radial,
+		gradientangle=90];
+	# localisation
 }
 `};
 
+dots["Cluster Gradients (Hebrew)"] = {
+	compare: "|",
+	dot: dots["Cluster Gradients"].dot.replace("# localisation", `
+	# Hebrew version
+	start [label="הַתחָלָה"]
+	end [label="סוֹף"]
+	a0 [label="לונדי"]
+	a1 [label="מרדי"]
+	a2 [label="מרקרדי"]
+	a3 [label="ג'ודי"]
+	b0 [label="ג'נוייר"]
+	b1 [label="פיבררי"]
+	b2 [label="מַאְדִים"]
+	b3 [label="אבריל"]
+	subgraph cluster_0 {
+		label = "תהליך #1";
+	}
+	subgraph cluster_1 {
+		label = "תהליך #2";
+	}
+`)};
+
+dots["Math"] = {
+	compare: "-",
+	url: "https://graphviz.org/Gallery/directed/Genetic_Programming.html",
+	dot: `graph ""
+   {
+	${fontFix}
+#   node [fontsize=10,width=".2", height=".2", margin=0];
+#   graph[fontsize=8];
+   label="((+ (* (X) (- (- (X) (X)) (X))) (% (+ (X) (X)) (COS (- (X) (X))))) (EXP (* (X) (X))) (+ (% (EXP (SIN (+ (X) (X)))) (SIN (* (X) (EXP (* (X) (X)))))) (* (X) (X))) (% (EXP (% (X) (% (X) (X)))) (EXP (SIN (X)))))"
+
+   subgraph cluster01
+   {
+   label="(+ (* (X) (- (- (X) (X)) (X))) (% (+ (X) (X)) (COS (- (X) (X)))))"
+   n002 ;
+   n002 [label="+"] ;
+   n002 -- n003 ;
+   n003 [label="*"] ;
+   n003 -- n004 ;
+   n004 [label="X"] ;
+   n003 -- n005 ;
+   n005 [label="-"] ;
+   n005 -- n006 ;
+   n006 [label="-"] ;
+   n006 -- n007 ;
+   n007 [label="X"] ;
+   n006 -- n008 ;
+   n008 [label="X"] ;
+   n005 -- n009 ;
+   n009 [label="X"] ;
+   n002 -- n010 ;
+   n010 [label="%"] ;
+   n010 -- n011 ;
+   n011 [label="+"] ;
+   n011 -- n012 ;
+   n012 [label="X"] ;
+   n011 -- n013 ;
+   n013 [label="X"] ;
+   n010 -- n014 ;
+   n014 [label="COS"] ;
+   n014 -- n015 ;
+   n015 [label="-"] ;
+   n015 -- n016 ;
+   n016 [label="X"] ;
+   n015 -- n017 ;
+   n017 [label="X"] ;
+   }
+
+   subgraph cluster17
+   {
+   label="(EXP (* (X) (X)))"
+   n018 ;
+   n018 [label="EXP"] ;
+   n018 -- n019 ;
+   n019 [label="*"] ;
+   n019 -- n020 ;
+   n020 [label="X"] ;
+   n019 -- n021 ;
+   n021 [label="X"] ;
+   }
+
+   subgraph cluster21
+   {
+   label="(+ (% (EXP (SIN (+ (X) (X)))) (SIN (* (X) (EXP (* (X) (X)))))) (* (X) (X)))"
+   n022 ;
+   n022 [label="+"] ;
+   n022 -- n023 ;
+   n023 [label="%"] ;
+   n023 -- n024 ;
+   n024 [label="EXP"] ;
+   n024 -- n025 ;
+   n025 [label="SIN"] ;
+   n025 -- n026 ;
+   n026 [label="+"] ;
+   n026 -- n027 ;
+   n027 [label="X"] ;
+   n026 -- n028 ;
+   n028 [label="X"] ;
+   n023 -- n029 ;
+   n029 [label="SIN"] ;
+   n029 -- n030 ;
+   n030 [label="*"] ;
+   n030 -- n031 ;
+   n031 [label="X"] ;
+   n030 -- n032 ;
+   n032 [label="EXP"] ;
+   n032 -- n033 ;
+   n033 [label="*"] ;
+   n033 -- n034 ;
+   n034 [label="X"] ;
+   n033 -- n035 ;
+   n035 [label="X"] ;
+   n022 -- n036 ;
+   n036 [label="*"] ;
+   n036 -- n037 ;
+   n037 [label="X"] ;
+   n036 -- n038 ;
+   n038 [label="X"] ;
+   }
+
+   subgraph cluster38
+   {
+   label="(% (EXP (% (X) (% (X) (X)))) (EXP (SIN (X))))"
+   n039 ;
+   n039 [label="%"] ;
+   n039 -- n040 ;
+   n040 [label="EXP"] ;
+   n040 -- n041 ;
+   n041 [label="%"] ;
+   n041 -- n042 ;
+   n042 [label="X"] ;
+   n041 -- n043 ;
+   n043 [label="%"] ;
+   n043 -- n044 ;
+   n044 [label="X"] ;
+   n043 -- n045 ;
+   n045 [label="X"] ;
+   n039 -- n046 ;
+   n046 [label="EXP"] ;
+   n046 -- n047 ;
+   n047 [label="SIN"] ;
+   n047 -- n048 ;
+   n048 [label="X"] ;
+   }
+   }
+`};
+
 dots["Bazel Build System"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/bazel.html",
 	dot:`digraph mygraph {
   ${fontFix}
@@ -804,38 +1083,8 @@ dots["Bazel Build System"] = {
 }
 `};
 
-dots["Clusters"] = {
-	url: "https://graphviz.org/Gallery/directed/cluster.html",
-	dot: `digraph G {
-	${fontFix}
-	subgraph cluster_0 {
-		style=filled;
-		color=lightgrey;
-		node [style=filled,color=white];
-		a0 -> a1 -> a2 -> a3;
-		label = "process #1";
-	}
-
-	subgraph cluster_1 {
-		node [style=filled];
-		b0 -> b1 -> b2 -> b3;
-		label = "process #2";
-		color=blue
-	}
-	start -> a0;
-	start -> b0;
-	a1 -> b3;
-	b2 -> a3;
-	a3 -> a0;
-	a3 -> end;
-	b3 -> end;
-
-	start [shape=Mdiamond];
-	end [shape=Msquare];
-}
-`};
-
 dots["Polygons"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/directed/crazy.html",
 	dot: `digraph "unix" {
 	graph [	fontname = "Helvetica-Oblique",
@@ -945,6 +1194,7 @@ dots["Polygons"] = {
 `};
  
 dots["Data Structures"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/datastruct.html",
 	dot: `digraph g {
 ${fontFix}
@@ -1064,6 +1314,7 @@ id = 16
 `};
  
 dots["Finite Automaton"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/directed/fsm.html",
 	dot: `digraph finite_state_machine {
 	${fontFix}
@@ -1089,6 +1340,7 @@ dots["Finite Automaton"] = {
 `};
 
 dots["Go Package Imports"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/go-package.html",
 	dot: `digraph regexp { 
  ${fontFix}
@@ -1164,12 +1416,8 @@ dots["Go Package Imports"] = {
 }
 `};
 
-dots["Hello World"] = {
-	url: "https://graphviz.org/Gallery/directed/hello.html",
-	dot: `digraph G {${fontFix} Hello->World}
-`};
-
 dots["Family Tree"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/kennedyanc.html",
 	dot: `graph G {
 ${fontFix}
@@ -1213,6 +1461,7 @@ I4 [shape=ellipse,color=red,style=bold,label="Janet Norton Lee\nb. 2.10.1877\nd.
 `};
 
 dots["Racehorse Pedigree"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/lion_share.html",
 	dot: `digraph Ped_Lion_Share           {
 ${fontFix}
@@ -1323,6 +1572,7 @@ label = "Pedigree Lion_Share" ;
 `};
 
 dots["Neural Network (Keras)"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/neural-network.html",
 	dot: `digraph G {
   ${fontFix}
@@ -1352,6 +1602,7 @@ dots["Neural Network (Keras)"] = {
 `};
 
 dots["Ninja Build System"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/ninja.html",
 	dot: `digraph ninja {
 ${fontFix}
@@ -1618,6 +1869,7 @@ edge [fontsize=10]
 `};
 
 dots["Program Profile"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/directed/profile.html",
 	dot: `digraph prof {
 	${fontFix}
@@ -1773,6 +2025,7 @@ term [color="0.650 0.200 1.000"];
 `};
 
 dots["PSG"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/psg.html",
 	dot: `digraph g {
   ${fontFix}
@@ -1806,6 +2059,7 @@ dots["PSG"] = {
 `};
 
 dots["Synchronous Digital Hierarchy"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/directed/sdh.html",
 	dot: `digraph G {
 	${fontFix}
@@ -2095,6 +2349,7 @@ dots["Synchronous Digital Hierarchy"] = {
 `};
 
 dots["Siblings"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/directed/siblings.html",
 	dot: `digraph sdsu {
 	size="36,36";
@@ -2594,6 +2849,7 @@ dots["Siblings"] = {
 `};
 
 dots["Switch Network"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/directed/switch.html",
 	dot: `digraph G {
 	${fontFix}
@@ -2658,36 +2914,8 @@ dots["Switch Network"] = {
 }
 `};
 
-dots["Traffic Lights"] = {
-	url: "https://graphviz.org/Gallery/directed/traffic_lights.html",
-	dot: `digraph TrafficLights {
-${fontFix}
-node [shape=box];  gy2; yr2; rg2; gy1; yr1; rg1;
-node [shape=circle,fixedsize=true,width=0.9];  green2; yellow2; red2; safe2; safe1; green1; yellow1; red1;
-gy2->yellow2;
-rg2->green2;
-yr2->safe1;
-yr2->red2;
-safe2->rg2;
-green2->gy2;
-yellow2->yr2;
-red2->rg2;
-gy1->yellow1;
-rg1->green1;
-yr1->safe2;
-yr1->red1;
-safe1->rg1;
-green1->gy1;
-yellow1->yr1;
-red1->rg1;
-
-overlap=false
-label="PetriNet Model TrafficLights\nExtracted from ConceptBase and layed out by Graphviz"
-fontsize=12;
-}
-`};
-
 dots["UNIX Family 'Tree'"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/directed/unix.html",
 	dot: `/* courtesy Ian Darwin and Geoff Collyer, Softquad Inc. */
 digraph unix {
@@ -2747,6 +2975,7 @@ digraph unix {
 `};
 
 dots["World Dynamics"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/directed/world.html",
 	dot: `digraph world {
 ${fontFix}
@@ -2819,6 +3048,7 @@ size="7,7";
 `};
 
 dots["Linear and Radial Gradient Angles"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/gradient/angles.html",
 	dot: `digraph G {bgcolor=blue
 	${fontFix}
@@ -2858,58 +3088,8 @@ n5 -> n14;
 }
 `};
 
-dots["Cluster Gradients"] = {
-	url: "https://graphviz.org/Gallery/gradient/cluster.html",
-	dot: `digraph G {bgcolor="red:cyan" gradientangle=0
-	${fontFix}
-	subgraph cluster_0 {
-		style=filled;
-		color=lightgrey;
-		fillcolor="blue:yellow";
-		gradientangle=90;
-		node [fillcolor="yellow:green" style=filled gradientangle=270] a0;
-		node [fillcolor="green:red"] a1;
-		node [fillcolor="red:cyan"] a2;
-		node [fillcolor="cyan:blue"] a3;
-
-		a0 -> a1 -> a2 -> a3;
-		label = "process #1";
-	}
-
-	subgraph cluster_1 {
-		node [fillcolor="yellow:magenta" 
-			 style=filled gradientangle=270] b0;
-		node [fillcolor="magenta:cyan"] b1;
-		node [fillcolor="cyan:red"] b2;
-		node [fillcolor="red:blue"] b3;
-
-		b0 -> b1 -> b2 -> b3;
-		label = "process #2";
-		color=blue
-		fillcolor="blue:yellow";
-		style=filled;
-		gradientangle=90;
-	}
-	start -> a0;
-	start -> b0;
-	a1 -> b3;
-	b2 -> a3;
-	a3 -> a0;
-	a3 -> end;
-	b3 -> end;
-
-	start [shape=Mdiamond ,
-		fillcolor="yellow:brown",
-		gradientangle=90,
-		style=radial];
-	end [shape=Msquare,
-		fillcolor="orange:blue",
-		style=radial,
-		gradientangle=90];
-}
-`};
-
 dots["Sample Gradient Color Schemes"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/gradient/colors.html",
 	dot: `digraph G {bgcolor=blue
 ${fontFix}
@@ -2961,6 +3141,7 @@ n3 -> n9 -> n15 -> n21;
 `};
 
 dots["Gradients Applied to Data Struct"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/gradient/datastruct.html",
 	dot: `digraph g {
 ${fontFix}
@@ -3103,19 +3284,8 @@ id = 16
 }
 `};
 
-dots["Graph, Cluster and Node Gradients"] = {
-	url: "https://graphviz.org/Gallery/gradient/g_c_n.html",
-	dot: `digraph G { bgcolor="purple:pink" label="agraph" fontcolor="white"
-  ${fontFix}
-  subgraph cluster1 {fillcolor="blue:cyan" label="acluster" fontcolor="white" style="filled" gradientangle="270"
-		node [shape=box fillcolor="red:yellow" style="filled" gradientangle=90]
-		anode;
-	}
-
-} 
-`};
-
 dots["Gradient Linear Angles"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/gradient/linear_angle.html",
 	dot: `digraph G { bgcolor="purple:pink" style="filled"
   ${fontFix}
@@ -3221,6 +3391,7 @@ dots["Gradient Linear Angles"] = {
 `};
 
 dots["Gradient Radial Angles"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/gradient/radial_angle.html",
 	dot: `digraph G { bgcolor="purple:pink" style="filled"
   ${fontFix}
@@ -3326,6 +3497,7 @@ dots["Gradient Radial Angles"] = {
 `};
 
 dots["Table and Cell Gradients"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/gradient/table.html",
 	dot: `digraph G { bgcolor="yellow:red" 
   ${fontFix}
@@ -3363,6 +3535,7 @@ dots["Table and Cell Gradients"] = {
 `};
 
 dots["Radial Layout"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/twopi/twopi2.html",
 	dot: `digraph G {
  ${fontFix}
@@ -5580,6 +5753,7 @@ dots["Radial Layout"] = {
 `};
 
 dots["Entity-Relation Data Model"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/undirected/ER.html",
 	dot: `graph ER {
 	${fontFix}
@@ -5608,6 +5782,7 @@ dots["Entity-Relation Data Model"] = {
 `};
 
 dots["Undirected Graph Clusters"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/undirected/fdpclust.html",
 	dot: `graph G {
   ${fontFix}
@@ -5629,6 +5804,7 @@ dots["Undirected Graph Clusters"] = {
 `};
 
 dots["Cluster relations in a graph"] = {
+	compare: "-",
 	url: "https://graphviz.org/Gallery/undirected/gd_1994_2007.html",
 	dot: `graph {
 	${fontFix}
@@ -7525,6 +7701,7 @@ dots["Cluster relations in a graph"] = {
 `};
 
 dots["Grid"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/undirected/grid.html",
 	dot: `graph grid
 {
@@ -9701,6 +9878,7 @@ dots["Radial Layout of a Network Graph"] = {
 */
 
 dots["Philo"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/undirected/philo.html",
 	dot: `digraph PhiloDilemma {
 ${fontFix}
@@ -9742,6 +9920,7 @@ fontsize=12;
 `};
 
 dots["Process"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/undirected/process.html",
 	dot: `graph G {
 	${fontFix}
@@ -11912,6 +12091,7 @@ dots["Graph Layout Using sfdp"] = {
 */
 
 dots["Partially Transparent Colors"] = {
+	compare: "|",
 	url: "https://graphviz.org/Gallery/undirected/transparency.html",
 	dot: `graph G {
 	${fontFix}
@@ -12022,6 +12202,7 @@ dots["Partially Transparent Colors"] = {
 `};
 
 dots["Bug1: multi"] = {
+	compare: "|",
 	dot: `digraph {
 	1 -> 2 -> {A B} #not reconised
 	3 -> {C,D} # crash
@@ -12029,6 +12210,7 @@ dots["Bug1: multi"] = {
 `};
 
 dots["Bug2: record"] =  {
+	compare: "|",
 	dot: `digraph {
 	node [shape=record];
 	a [label="{A|B}"]
@@ -12038,6 +12220,7 @@ dots["Bug2: record"] =  {
 
 // ie.: https://graphviz.org/doc/info/shapes.html search "record"
 dots["Bug3: record2"] = {
+	compare: "|",
 	dot: `digraph {
 	a [label=<coucou<br/>toi>]
 	b [label=<coucou&lt;br/&gt;toi>]
@@ -12049,6 +12232,7 @@ dots["Bug3: record2"] = {
 `};
 
 dots["Bug4: trim"] =  {
+	compare: "|",
 	dot: `digraph {
 a0 [label=<
  <TABLE><TR><TD>test</TD></TR></TABLE>>];
@@ -12057,6 +12241,7 @@ a0 [label=<
 
 // bug on mode: norm
 dots["Bug5: subst [fixed]"] = {
+	compare: "|",
 	dot: `digraph {
 a0 [label="coucou \\\"toi\\\", ca va ?"]
 }
@@ -12064,6 +12249,7 @@ a0 [label="coucou \\\"toi\\\", ca va ?"]
 
 // bug on mode: norm
 dots["Bug6: nodeLabel [fixed]"] = {
+	compare: "|",
 	dot: `digraph {
 node [label=lab1]
 	n1
@@ -12077,6 +12263,7 @@ node [label=lab1]
 
 // bug on mode: norm
 dots["Bug7: zero [fixed]"] = {
+	compare: "|",
 	dot: `digraph {
 	0
 	1
@@ -12085,6 +12272,7 @@ dots["Bug7: zero [fixed]"] = {
 
 // bug on mode: norm
 dots["Bug8: nodeLabel&stack"] = {
+	compare: "|",
 	dot: `digraph {
 	a
 	{
@@ -12211,6 +12399,7 @@ dots["Test2"] = {
 */
 
 dots["Test1"] = {
+	compare: "-",
 	dot: `graph {
 	/*node [shape=box; margin=0; fontname = "helvetica"]*/
 	${fontFix}
@@ -12231,12 +12420,14 @@ dots["Test1"] = {
 `};
 
 dots["Test2"] = {
+	compare: "|",
 	dot: `graph {
 	a [label=coucou]
 }
 `};
 
 dots["Test2a"] = {
+	compare: "|",
 	dot: `graph G {
 	scale = "2,1"
 	layout = dot
@@ -12297,6 +12488,7 @@ double_way:false})", fontsize="10", fontcolor="#000"]
 */
 
 dots["Test3a"] = {
+	compare: "|",
 	dot:`graph G {
 	scale = "2,1"
 	layout = dot
@@ -12318,6 +12510,7 @@ double_way:false})", fontsize="10", fontcolor="#000"]
 `};
 
 dots["Test3b"] = {
+	compare: "|",
 	dot: `graph G {
 	scale = "2,1"
 	layout = dot
@@ -12334,6 +12527,7 @@ dots["Test3b"] = {
 `};
 
 dots["Test4"] = {
+	compare: "|",
 	dot: `graph {
 	${fontFix}
 	a [label=coucou]
@@ -12346,6 +12540,7 @@ dots["Test4"] = {
 `};
 
 dots["Test5"] = {
+	compare: "|",
 	dot: `digraph {
 	${fontFix}
 	a [label=A xlabel=a]
@@ -12367,6 +12562,7 @@ dots["Test5"] = {
 `};
 
 dots["Chat"] = {
+	compare: "-",
 	dot: `graph {
 	${fontFix}
 	node [shape=box]
@@ -12398,6 +12594,7 @@ dots["Chat"] = {
 }`};
 
 dots["Chat min"] = {
+	compare: "|",
 	dot: `graph {
 	${fontFix}
 	node [shape=box]
