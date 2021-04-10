@@ -15,7 +15,7 @@ Until that is resolved, here is a workaround. It works well but consumes more co
 # Algorithm:
 1) calculate the dimensions of all ASCII characters
 2) parse the DOT format and replace the labels with the closest combination of ASCII characters of the same size
-3) display SVGs with modified DOT
+3) display SVG with modified DOT
 4) replace with original characters
 
 ![cat debug](https://user-images.githubusercontent.com/59834740/114245224-6bd88d00-9966-11eb-926c-bddac9aeba7e.png)
