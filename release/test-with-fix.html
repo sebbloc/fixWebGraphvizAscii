@@ -1,0 +1,66 @@
+<html>
+<head>
+	<script src="fixVizAscii.js"></script>
+	<script src="viz.js"></script>
+</head>
+<body>
+	<title>fixVizAscii</title>
+	<h1>fixVizAscii: on</h1>
+	<script>
+		// append svg fixed from dot
+		function dot2SvgFixed(dot) {
+			var id = 0;
+			var fix = new GraphvizUnicodeFix;	
+			var dom = dotParse(dot);								// 1) parse original dot
+			var dotFixed = dotSerialize(dom, (label, isHTML) => {	// 2) create a fixed dot (serialize with encoding label)
+				id++;
+				return {
+					id: id,
+					out: fix.parse(label, "id" + id, isHTML)
+				};
+			});
+			var svgFixed = dot2Svg(dotFixed);						// 3) show svg with fixed dot
+			document.body.appendChild(createNodeHtml(svgFixed));			
+			fix.applySvg();											// 4) fix svg
+		}
+		
+		var fontFix = 'graph [fontname="helvetica"]\n\tnode [fontname="helvetica"]\n\tedge [fontname="helvetica"]\n';
+		var debug = 0;
+	
+		// get svg text from dot 
+		function dot2Svg(dot) {
+			return Viz(dot, "svg");			
+		}
+
+		dot2SvgFixed(`
+graph {
+	${fontFix}
+	node [shape=box]
+	cat [label="cat\nconcept"]
+	cat -- catFr [label="French"]
+	cat -- catAr [label="Arabic"]
+	cat -- catRu [label="Russian"]
+	cat -- catZh [label="Chinese"]
+	cat -- catUk [label="Ukrainian"]
+	cat -- catJa [label="Japanese"]
+	catFr [label="chat domestique"]
+	catAr [label="القطط المنزلية"]
+	catJa [label="飼い猫"]
+	catRu [label="Домашняя кошка"]
+	catUk [label="домашня кішка"]
+	catZh [label="家猫"]
+	catFr -- infoFr
+	catAr -- infoAr
+	catJa -- infoJa
+	catRu -- infoRu
+	catUk -- infoUk
+	catZh -- infoZh
+	infoFr [label=<<TABLE BORDER="0"><TR><TD>&gt;</TD><TD>miaou</TD></TR><TR><TD>&gt;</TD><TD>mignon</TD></TR><TR><TD>&gt;</TD><TD>égoïste</TD></TR></TABLE>>]	
+	infoAr [label=<<TABLE BORDER="0"><TR><TD>&gt;</TD><TD>مواء</TD></TR><TR><TD>&gt;</TD><TD>جذاب</TD></TR><TR><TD>&gt;</TD><TD>أنانية</TD></TR></TABLE>>]	
+	infoJa [label=<<TABLE BORDER="0"><TR><TD>&gt;</TD><TD>ニャー</TD></TR><TR><TD>&gt;</TD><TD>可愛い</TD></TR><TR><TD>&gt;</TD><TD>利己的</TD></TR></TABLE>>]	
+	infoRu [label=<<TABLE BORDER="0"><TR><TD>&gt;</TD><TD>мяу</TD></TR><TR><TD>&gt;</TD><TD>милый</TD></TR><TR><TD>&gt;</TD><TD>эгоистичный</TD></TR></TABLE>>]	
+	infoUk [label=<<TABLE BORDER="0"><TR><TD>&gt;</TD><TD>мяу</TD></TR><TR><TD>&gt;</TD><TD>милий</TD></TR><TR><TD>&gt;</TD><TD>егоїстичний</TD></TR></TABLE>>]	
+	infoZh [label=<<TABLE BORDER="0"><TR><TD>&gt;</TD><TD>喵</TD></TR><TR><TD>&gt;</TD><TD>可爱的</TD></TR><TR><TD>&gt;</TD><TD>自私</TD></TR></TABLE>>]		
+}`);
+	</script>
+</body>
